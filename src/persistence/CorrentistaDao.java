@@ -37,5 +37,24 @@ public class CorrentistaDao extends Dao{
 		
 	}
 	
+	public Correntista login(Correntista c)throws Exception{
+		open();
+			stmt= con.
+					prepareStatement("select * from correntista where numero=? and email=?");
+			stmt.setInt(1, c.getNumero());
+			stmt.setString(2, c.getEmail());
+			rs = stmt.executeQuery();
+			Correntista resp = null;
+			if(rs.next()){
+				resp = new Correntista();
+				resp.setNumero(rs.getInt("numero"));
+				resp.setNome(rs.getString("nome"));
+				resp.setEmail(rs.getString("email"));
+				resp.setSaldo(rs.getDouble("Saldo"));
+			}
+		close();
+		
+		return c;
+	}
 	
 }
